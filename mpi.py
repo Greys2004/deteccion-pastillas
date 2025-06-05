@@ -1,20 +1,54 @@
+# mpi.py
 import numpy as np
-import cv2
 
-# Convierte imagen a binaria con umbral invertido
-def binarizar(imagen_gris, umbral=127):
-    _, binarizada = cv2.threshold(imagen_gris, umbral, 255, cv2.THRESH_BINARY_INV)
-    return binarizada
+# -----------------------------
+# TUS FUNCIONES AUXILIARES
+# -----------------------------
 
-# Aplica cierre morfológico a una imagen binaria
-def cerrar(imagen_binaria, kernel_size=5, iteraciones=2):
-    kernel = np.ones((kernel_size, kernel_size), np.uint8)
-    return cv2.morphologyEx(imagen_binaria, cv2.MORPH_CLOSE, kernel, iterations=iteraciones)
+def binarizar(imagen_gris, umbral=100):
+    """
+    Convierte la imagen en escala de grises a binaria usando el umbral dado.
+    """
+    return np.where(imagen_gris > umbral, 1.0, 0.0)
 
-# Determina si una región contiene una pastilla con base en proporción de pixeles blancos
-# umbral_negro define cuánta proporción blanca se acepta antes de considerar que no hay pastilla
-def tiene_pastilla(parche_gray, umbral=127, kernel_size=5, iteraciones=2, umbral_negro=0.3):
-    parche_bin = binarizar(parche_gray, umbral)
-    parche_cerrado = cerrar(parche_bin, kernel_size, iteraciones)
-    black_ratio = np.sum(parche_cerrado == 255) / parche_cerrado.size
-    return black_ratio < umbral_negro
+def dilatar(binaria, kernel):
+    h, w = binaria.shape
+    kh, kw = kernel.shape
+    ph, pw = kh // 2, kw // 2
+    salida = np.zeros_like(binaria)
+
+    for y in range(ph, h - ph):
+        for x in range(pw, w - pw):
+            region = binaria[y - ph:y + ph + 1, x - pw:x + pw + 1]
+            salida[y, x] = np.max(region * kernel)
+
+    return salida
+
+def erosionar(binaria, kernel):
+    h, w = binaria.shape
+    kh, kw = kernel.shape
+    ph, pw = kh // 2, kw // 2
+    salida = np.zeros_like(binaria)
+
+    for y in range(ph, h - ph):
+        for x in range(pw, w - pw):
+            region = binaria[y - ph:y + ph + 1, x - pw:x + pw + 1]
+            salida[y, x] = np.min(region * kernel)
+
+    return salida
+
+def cerrar(binaria, kernel=np.ones((5, 5))):
+    return erosionar(dilatar(binaria, kernel), kernel)
+
+# ----------------------------------
+# FUNCIÓN FINAL QUE USA TODO ESO
+# ----------------------------------
+
+def tiene_pastilla(parche_gris):
+    """
+    Detecta si hay una pastilla presente en un parche de imagen gris.
+    """
+    binaria = binarizar(parche_gris)
+    cerrada = cerrar(binaria)
+    porcentaje_blanco = np.mean(cerrada)
+    return porcentaje_blanco > 0.2 
