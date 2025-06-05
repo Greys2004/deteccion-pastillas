@@ -34,8 +34,8 @@ if uploaded_file is not None:
     maxRadius = 23
 
     circles = cv2.HoughCircles(blurred, cv2.HOUGH_GRADIENT, dp, minDist,
-                               param1=param1, param2=param2,
-                               minRadius=minRadius, maxRadius=maxRadius)
+                            param1=param1, param2=param2,
+                            minRadius=minRadius, maxRadius=maxRadius)
 
     salida = img_cv_resized.copy()
     total = 0
