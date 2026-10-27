@@ -8,7 +8,7 @@ Prototype that detects circular tablet positions in blister photos and estimates
 
 ![Tech](https://img.shields.io/badge/Purple_Future-Portfolio-974ECA?style=for-the-badge&labelColor=251139)
 
-[GitHub profile](https://github.com/Greys2004) · [Portfolio](https://greys2004.github.io/Curriculum/) 
+[GitHub profile](https://github.com/Greys2004) 
 
 </div>
 
