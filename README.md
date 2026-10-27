@@ -1,38 +1,49 @@
 <div align="center">
 
-# ✦ Pill Detection — Computer Vision
+# ✦ deteccion-pastillas
 
-**Analyzes tablet-blister photos using Hough circle detection, thresholding and image morphology to estimate missing tablets.**
+### Missing tablet detection
 
-![Documentation](https://img.shields.io/badge/Documentation-Updated-8B5CF6?style=for-the-badge) ![Project](https://img.shields.io/badge/Greys2004-Portfolio-4C1D95?style=for-the-badge)
+Prototype that detects circular tablet positions in blister photos and estimates missing pills.
+
+![Tech](https://img.shields.io/badge/Purple_Future-Portfolio-974ECA?style=for-the-badge&labelColor=251139)
+
+[GitHub profile](https://github.com/Greys2004) · [Portfolio](https://greys2004.github.io/Curriculum/) 
 
 </div>
 
 ---
 
-## Overview
+## 🖼️ Sample input
 
-Analyzes tablet-blister photos using Hough circle detection, thresholding and image morphology to estimate missing tablets.
+<img src="pastilla1.jpeg" alt="Sample blister photo" width="55%"/>
 
-## Technology
+## ✦ Highlights
 
-Python, OpenCV, NumPy, Pillow and Streamlit.
+- Upload blister photos through Streamlit
+- Grayscale and Gaussian filtering
+- Hough circle detection and local threshold analysis
+- Highlight detected tablet positions and count potentially missing tablets
 
-## Local development
+## ⚙️ Technologies
 
-Clone this repository and enter its directory. Then run:
+`Python` · `OpenCV` · `Streamlit` · `NumPy`
+
+## 🚀 Run locally
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 streamlit run proyecto.py
 ```
 
-Results depend on lighting, angle and blister format. This is an educational prototype, not a medical quality-control tool.
+Use a Python virtual environment where possible. Upload a JPG/PNG in the Streamlit UI.
 
-## Notes
+## 📌 Notes
 
-This README documents the project's verified technologies and intended use. Deployment credentials and application-specific environment values are not included. Do not commit API keys or production secrets.
+The screenshot you supplied illustrates **10 detected positions and 2 marked as missing**, for that sample only. Accuracy is sensitive to lighting and camera angle; this is not a clinical or pharmaceutical quality-control system.
 
-## Author
+Never commit production secrets or credentials.
 
-**Greys Alexa Almanza Vega** · [GitHub](https://github.com/Greys2004) · [Portfolio](https://greys2004.github.io/Curriculum/)
+---
+
+<div align="center">**Greys Alexa Almanza Vega** · Software Engineer 💜</div>
